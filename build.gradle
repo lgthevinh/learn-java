@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.rogo.edge'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    implementation(platform("org.mongodb:mongodb-driver-bom:5.5.0"))
+    implementation 'org.mongodb:mongodb-driver-sync'
+
+    implementation("org.xerial:sqlite-jdbc:3.43.2.0") // Essential for DAO
+    implementation("org.slf4j:slf4j-api:2.0.9") // Logging interface of jdbc
+    implementation("org.slf4j:slf4j-simple:2.0.9")
+}
+
+test {
+    useJUnitPlatform()
+}
