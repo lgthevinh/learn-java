@@ -12,7 +12,7 @@ public abstract class AbstractDatabase<T extends BaseModel, M> implements IDatab
         insertImpl(convertToDbModel(model));
     }
 
-    public T read(String id) throws Exception {
+    public T read(String id) {
         return convertToBaseModel(readImpl(id));
     }
 
@@ -47,6 +47,6 @@ public abstract class AbstractDatabase<T extends BaseModel, M> implements IDatab
     protected abstract void deleteImpl(M dbModel);
     protected abstract List<M> queryImpl(String query);
 
-    protected abstract T convertToBaseModel(M dbModel) throws Exception;
+    protected abstract T convertToBaseModel(M dbModel);
     protected abstract M convertToDbModel(T model);
 }
