@@ -43,3 +43,4 @@ bin/
 
 ### Protected Variables ###
 /src/main/java/com/edge/example/core/ProtectedVar.java
+/database.db
