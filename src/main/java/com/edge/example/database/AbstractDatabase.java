@@ -12,7 +12,7 @@ public abstract class AbstractDatabase<T extends BaseModel, M> implements IDatab
         insertImpl(convertToDbModel(model));
     }
 
-    public T read(String id) {
+    public T read(String id) throws Exception {
         return convertToBaseModel(readImpl(id));
     }
 
@@ -30,7 +30,14 @@ public abstract class AbstractDatabase<T extends BaseModel, M> implements IDatab
             return null;
         }
         return dbModel.stream()
-                .map(this::convertToBaseModel)
+                .map(dbModelItem -> {
+                    try {
+                        return convertToBaseModel(dbModelItem);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return null;
+                    }
+                })
                 .toList();
     }
 
@@ -40,6 +47,6 @@ public abstract class AbstractDatabase<T extends BaseModel, M> implements IDatab
     protected abstract void deleteImpl(M dbModel);
     protected abstract List<M> queryImpl(String query);
 
-    protected abstract T convertToBaseModel(M dbModel);
+    protected abstract T convertToBaseModel(M dbModel) throws Exception;
     protected abstract M convertToDbModel(T model);
 }
