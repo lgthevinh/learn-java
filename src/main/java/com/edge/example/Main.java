@@ -6,7 +6,8 @@ import com.edge.example.model.Food;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        IDatabase<Food> database = DatabaseFactory.getDatabase("mongo", Food.class);
+//        IDatabase<Food> database = DatabaseFactory.getDatabase("mongo", Food.class);
+         IDatabase<Food> database = DatabaseFactory.getDatabase("sqlite", Food.class);
 
         // Insert a new food item
 
@@ -30,7 +31,9 @@ public class Main {
         System.out.println("Food updated: " + retrievedFood.getName() + ", New Price: " + retrievedFood.getPrice());
 
         // Query the food item by name
-        Food queriedFood = database.query("{name:\"Pizza\"}").get(0);
+//        Food queriedFood = database.query("{name:\"Pizza\"}").get(0);
+        Food queriedFood = database.query("SELECT * FROM food where name = 'Pizza'").get(0);
+
         if (queriedFood != null) {
             System.out.println("Queried Food: " + queriedFood.getName() + ", Price: " + queriedFood.getPrice());
         } else {
