@@ -115,6 +115,11 @@ public class MongoDBDatabase<T extends BaseModel> extends AbstractDatabase<T, Do
 
         Document document = new Document();
         for (Map.Entry<String, Object> entry : model.toMap().entrySet()) {
+
+            if (entry.getValue() == null) {
+                continue; // Skip null values
+            }
+
             if (entry.getValue() instanceof String) {
                 document.append(entry.getKey(), (String) entry.getValue());
             } else if (entry.getValue() instanceof Integer) {
@@ -127,8 +132,6 @@ public class MongoDBDatabase<T extends BaseModel> extends AbstractDatabase<T, Do
                 // Handle other types as needed
                 document.append(entry.getKey(), entry.getValue().toString());
             }
-
-            document.append(entry.getKey(), entry.getValue());
         }
         return document;
     }
